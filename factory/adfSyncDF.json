@@ -1,0 +1,9 @@
+{
+	"name": "adfSyncDF",
+	"location": "westeurope",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "8c973b5b-2bdf-4ef1-af1e-560028b60ef4",
+		"tenantId": "93004b47-238e-4ef7-b9f7-8085640be5b8"
+	}
+}

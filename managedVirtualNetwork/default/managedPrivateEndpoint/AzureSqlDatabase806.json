@@ -1,0 +1,10 @@
+{
+	"name": "AzureSqlDatabase806",
+	"properties": {
+		"privateLinkResourceId": "/subscriptions/2c40b55b-44d4-4fbc-914c-a0da41f190eb/resourceGroups/adfResGroup/providers/Microsoft.Sql/servers/adftestsv",
+		"groupId": "sqlServer",
+		"fqdns": [
+			"adftestsv.database.windows.net"
+		]
+	}
+}

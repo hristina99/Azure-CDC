@@ -1,0 +1,230 @@
+{
+	"name": "ChangeCapture1",
+	"properties": {
+		"SourceConnectionsInfo": [
+			{
+				"SourceEntities": [
+					{
+						"name": "dbo.Department",
+						"properties": {
+							"schema": [],
+							"dslConnectorProperties": [
+								{
+									"name": "schemaName",
+									"value": "dbo"
+								},
+								{
+									"name": "tableName",
+									"value": "Department"
+								},
+								{
+									"name": "enableNativeCdc",
+									"value": true
+								},
+								{
+									"name": "netChanges",
+									"value": true
+								}
+							]
+						}
+					},
+					{
+						"name": "dbo.Employee",
+						"properties": {
+							"schema": [],
+							"dslConnectorProperties": [
+								{
+									"name": "schemaName",
+									"value": "dbo"
+								},
+								{
+									"name": "tableName",
+									"value": "Employee"
+								},
+								{
+									"name": "enableNativeCdc",
+									"value": true
+								},
+								{
+									"name": "netChanges",
+									"value": true
+								}
+							]
+						}
+					}
+				],
+				"Connection": {
+					"linkedService": {
+						"referenceName": "AzureLink1",
+						"type": "LinkedServiceReference"
+					},
+					"linkedServiceType": "AzureSqlDatabase",
+					"type": "linkedservicetype",
+					"isInlineDataset": true,
+					"commonDslConnectorProperties": [
+						{
+							"name": "allowSchemaDrift",
+							"value": true
+						},
+						{
+							"name": "inferDriftedColumnTypes",
+							"value": true
+						},
+						{
+							"name": "format",
+							"value": "table"
+						},
+						{
+							"name": "store",
+							"value": "sqlserver"
+						},
+						{
+							"name": "databaseType",
+							"value": "databaseType"
+						},
+						{
+							"name": "database",
+							"value": "database"
+						},
+						{
+							"name": "skipInitialLoad",
+							"value": true
+						}
+					]
+				}
+			}
+		],
+		"TargetConnectionsInfo": [
+			{
+				"TargetEntities": [
+					{
+						"name": "dbo.AuditDepartment",
+						"properties": {
+							"schema": [],
+							"dslConnectorProperties": [
+								{
+									"name": "schemaName",
+									"value": "dbo"
+								},
+								{
+									"name": "tableName",
+									"value": "AuditDepartment"
+								}
+							]
+						}
+					},
+					{
+						"name": "dbo.AuditEmployee",
+						"properties": {
+							"schema": [],
+							"dslConnectorProperties": [
+								{
+									"name": "schemaName",
+									"value": "dbo"
+								},
+								{
+									"name": "tableName",
+									"value": "AuditEmployee"
+								}
+							]
+						}
+					}
+				],
+				"Connection": {
+					"linkedService": {
+						"referenceName": "AzureLink2",
+						"type": "LinkedServiceReference"
+					},
+					"linkedServiceType": "AzureSqlDatabase",
+					"type": "linkedservicetype",
+					"isInlineDataset": true,
+					"commonDslConnectorProperties": [
+						{
+							"name": "allowSchemaDrift",
+							"value": true
+						},
+						{
+							"name": "inferDriftedColumnTypes",
+							"value": true
+						},
+						{
+							"name": "format",
+							"value": "table"
+						},
+						{
+							"name": "store",
+							"value": "sqlserver"
+						},
+						{
+							"name": "databaseType",
+							"value": "databaseType"
+						},
+						{
+							"name": "database",
+							"value": "database"
+						},
+						{
+							"name": "deletable",
+							"value": false
+						},
+						{
+							"name": "insertable",
+							"value": true
+						},
+						{
+							"name": "updateable",
+							"value": false
+						},
+						{
+							"name": "upsertable",
+							"value": false
+						},
+						{
+							"name": "skipDuplicateMapInputs",
+							"value": true
+						},
+						{
+							"name": "skipDuplicateMapOutputs",
+							"value": true
+						}
+					]
+				},
+				"DataMapperMappings": [
+					{
+						"targetEntityName": "dbo.AuditDepartment",
+						"sourceEntityName": "dbo.Department",
+						"sourceConnectionReference": {
+							"connectionName": "AzureLink1",
+							"type": "linkedservicetype"
+						},
+						"attributeMappingInfo": {
+							"attributeMappings": []
+						}
+					},
+					{
+						"targetEntityName": "dbo.AuditEmployee",
+						"sourceEntityName": "dbo.Employee",
+						"sourceConnectionReference": {
+							"connectionName": "AzureLink1",
+							"type": "linkedservicetype"
+						},
+						"attributeMappingInfo": {
+							"attributeMappings": []
+						}
+					}
+				],
+				"Relationships": []
+			}
+		],
+		"Policy": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 15
+			},
+			"mode": "Microbatch"
+		},
+		"status": "PipelineRunCreated",
+		"allowVNetOverride": false,
+		"id": "da206448a6894a3d89b4b4c8fabe71cc"
+	}
+}

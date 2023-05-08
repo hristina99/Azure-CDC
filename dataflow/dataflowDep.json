@@ -1,0 +1,107 @@
+{
+	"name": "dataflowDep",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Azdataset1",
+						"type": "DatasetReference"
+					},
+					"name": "SourceDep"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureEmp1",
+						"type": "DatasetReference"
+					},
+					"name": "sourceEmp"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Azdataset2",
+						"type": "DatasetReference"
+					},
+					"name": "SinkDep"
+				},
+				{
+					"dataset": {
+						"referenceName": "AzureEmp2",
+						"type": "DatasetReference"
+					},
+					"name": "sinkEmp"
+				}
+			],
+			"transformations": [],
+			"scriptLines": [
+				"source(output(",
+				"          id as integer,",
+				"          name as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     enableNativeCdc: true,",
+				"     netChanges: true,",
+				"     skipInitialLoad: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> SourceDep",
+				"source(output(",
+				"          id as integer,",
+				"          name as string,",
+				"          salary as decimal(19,4),",
+				"          departmentId as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     enableNativeCdc: true,",
+				"     netChanges: true,",
+				"     skipInitialLoad: false,",
+				"     isolationLevel: 'READ_UNCOMMITTED',",
+				"     format: 'table') ~> sourceEmp",
+				"SourceDep sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     deletable:true,",
+				"     insertable:true,",
+				"     updateable:true,",
+				"     upsertable:true,",
+				"     keys:['id'],",
+				"     format: 'table',",
+				"     preSQLs:['SET IDENTITY_INSERT  dbo.department ON'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          id,",
+				"          name",
+				"     )) ~> SinkDep",
+				"sourceEmp sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          id as integer,",
+				"          name as string,",
+				"          salary as decimal(19,4),",
+				"          departmentId as integer",
+				"     ),",
+				"     deletable:true,",
+				"     insertable:true,",
+				"     updateable:true,",
+				"     upsertable:true,",
+				"     keys:['id'],",
+				"     format: 'table',",
+				"     preSQLs:['SET IDENTITY_INSERT  dbo.Employee ON'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     errorHandlingOption: 'stopOnFirstError',",
+				"     mapColumn(",
+				"          id,",
+				"          name,",
+				"          salary,",
+				"          departmentId",
+				"     )) ~> sinkEmp"
+			]
+		}
+	}
+}
